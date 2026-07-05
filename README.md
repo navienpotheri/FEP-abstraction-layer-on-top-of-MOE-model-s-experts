@@ -22,6 +22,58 @@ This project implements a speculative **Topological Memory Engine** that maps me
 4. **Hypersphere Coordinate Normalization:** To guarantee absolute mathematical stability across radical distribution shifts or conversational shocks, coordinates are projected back down onto a unit hypersphere shell using an $L_2$ boundary constraint:
    $$\vec{s}_t = \frac{\vec{s}_t^-}{\|\vec{s}_t^-\|_2}$$
 
+# Connecting LLM and SSM Together Through a Small Model
+
+An architecture designed to achieve infinite-horizon state persistence for large language models without altering pre-trained parameters. By routing contextual memory state vectors through a localized, decoupled **Small Model Workspace Bridge**, this framework maps structural identity trajectories along a continuous state-space manifold while maintaining a 100% frozen, read-only LLM. This entirely mitigates the risk of weight degradation or catastrophic forgetting.
+
+---
+
+## 📐 The 7-Phase Dual-Model State Space Bridge
+
+[Phase 1: User Prompt Telemetry]
+│
+▼
+[Phase 2: Frozen LLM Forward Pass]
+│
+▼
+[Phase 3: Small Model Workspace] ──► Passes down immediate attention frames
+│
+▼
+[Phase 4: SSM State Vector] ───────► Extracts LLM hidden layers via the Small Model,
+│                     updating the long-term distribution on the manifold
+▼
+[Phase 5: State-Space Feedback] ───► SSM projects the updated distribution back to the Small Model
+│
+▼
+[Phase 6: Multi-Vector Absorption] ─► Small Model absorbs and blends the SSM + LLM vectors natively
+│
+▼
+[Phase 7: Connected Continuity] ────► LLM reads from the statefully conditioned Small Model workspace
+
+
+### Architectural Breakdown
+1. **Phase 1 (User Prompt Telemetry):** Intercepts conversational raw text inputs.
+2. **Phase 2 (Frozen LLM Forward Pass):** Computes deep activation matrices inside a production pre-trained transformer model (e.g., GPT-2 Layer 6).
+3. **Phase 3 (Small Model Workspace):** Compresses high-dimensional token attention snapshots into an isolated lower-dimensional workspace matrix ($768 \rightarrow 128$).
+4. **Phase 4 (SSM State Vector Update):** Trajectory coordinates smoothly shift along a bounded unit hypersphere manifold ($\text{Norm} = 1.0$) based on incoming contextual information.
+5. **Phase 5 (State-Space Feedback):** The updated distribution projects downstream directly into the workspace cell parameters at execution time.
+6. **Phase 6 (Multi-Vector Absorption):** The Small Model dynamically absorbs and blends incoming spatial trajectories and immediate lexical feature frames simultaneously.
+7. **Phase 7 (Connected Continuity):** Delivers a statefully anchored hidden context layer, allowing the language system to maintain historical cohesion over an infinite interaction boundary.
+
+---
+
+## 📦 Repository Structure
+
+```text
+topological-memory-manifold/
+├── adapters/
+│   ├── __init__.py
+│   └── llm_mock.py             # Live read-only telemetry bridge to GPT-2
+├── core/
+│   └── engine.py               # Core 7-Phase dual-model state space engine
+├── run.py                      # Multi-turn execution simulator
+├── verify_live_continuity.py   # Latent context cosine similarity validation
+└── verify_llm_memory.py        # Token distribution generative shift checker
 ---
 
 ## 🛠️ 3. Running the Architecture
